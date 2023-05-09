@@ -5,3 +5,9 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+
+letters = 'ABCDEFGHIJKLMNOPQRSTUVWXY'.chars
+code = []
+20.times { code << letters.sample(3).join }
+airports = []
+code.map { |k| airports << Airport.create(code: k) }
