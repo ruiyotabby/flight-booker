@@ -11,3 +11,4 @@ code = []
 20.times { code << letters.sample(3).join }
 airports = []
 code.map { |k| airports << Airport.create(code: k) }
+10.times { Flight.create(departure_airport: airports.sample, arrival_airport: airports.sample) }
