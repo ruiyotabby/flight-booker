@@ -6,9 +6,11 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
+Flight.delete_all
+Airport.delete_all
 letters = 'ABCDEFGHIJKLMNOPQRSTUVWXY'.chars
 code = []
-20.times { code << letters.sample(3).join }
+100.times { code << letters.sample(3).join }
 airports = []
 code.map { |k| airports << Airport.create(code: k) }
-10.times { Flight.create(departure_airport: airports.sample, arrival_airport: airports.sample) }
+100.times { Flight.create(departure_airport: airports.sample, arrival_airport: airports.sample, start: rand(10.days).seconds.from_now) }
