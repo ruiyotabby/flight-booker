@@ -10,7 +10,8 @@ Flight.delete_all
 Airport.delete_all
 letters = 'ABCDEFGHIJKLMNOPQRSTUVWXY'.chars
 code = []
-100.times { code << letters.sample(3).join }
+10.times { code << letters.sample(3).join }
 airports = []
 code.map { |k| airports << Airport.create(code: k) }
-100.times { Flight.create(departure_airport: airports.sample, arrival_airport: airports.sample, start: rand(10.days).seconds.from_now) }
+10.times { Flight.create(departure_airport: airports.sample, arrival_airport: airports.sample, 
+  start: rand(10.days).seconds.from_now.strftime("%a, %d %b %Y %H:%M:%S %Z")) }
