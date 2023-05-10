@@ -15,7 +15,29 @@
   <%= form.select :arrival_airport_id, @arrival_options %>
   <%= form.label :tickets %>
   <%= form.select :tickets, [1,2,3,4] %>
-  <%= form.label :date, 'Flight date' %>
+  <%= form.label :start, 'Flight date' %>
   <%= form.select :start, @start_options %>
   <%= form.submit 'Search' %>
 <% end %>
+
+<% if request.query_parameters[:commit] %>
+  <% if @found_flights.empty? %>
+    <p>No flights matching your search query</p>
+  <% else %>
+    <p>Found <%= @found_flights.count %> flights</p>
+    <%= form_with model: @flight do |f| %>
+      <% @found_flights.each do |flight| %>
+        <%= f.radio_button :flight_id, flight.id %>
+        <%= f.label "flight_#{flight.id}" do %>
+          From: <%= flight.departure_airport.code %>
+          To: <%= flight.arrival_airport.code %>
+          Date: <%= flight.start.to_fs(:long) %>
+          Tickets: <%= request.query_parameters[:flight][:tickets] %>
+        <% end %>
+        <%= f.hidden_field :tickets, value: request.query_parameters[:flight][:tickets] %>
+      <% end %>
+    <%= f.submit 'Select Flight' %>
+    <% end %>
+  <% end %>
+<% end %>
+
