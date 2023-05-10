@@ -1,10 +1,21 @@
+<%= stylesheet_link_tag 'index.css' %>
+
+<header>
+  <h1>FlyExpress</h1>
+</header>
+<div class="img">
+  <%= image_tag "travel-by-plane.jpg" %>
+  <div>Book your flight today
+  </div>
+</div>
 <%= form_with model: @flights, url: '/flights', method: :get do |form| %>
   <%= form.label :departure_airport_id %>
   <%= form.select :departure_airport_id, @departure_options %>
   <%= form.label :arrival_airport_id %>
   <%= form.select :arrival_airport_id, @arrival_options %>
-  <%= form.label :passengers %>
-  <%= form.select :passengers, [1,2,3,4] %>
+  <%= form.label :tickets %>
+  <%= form.select :tickets, [1,2,3,4] %>
   <%= form.label :date, 'Flight date' %>
   <%= form.select :start, @start_options %>
+  <%= form.submit 'Search' %>
 <% end %>
