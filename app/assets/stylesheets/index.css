@@ -65,3 +65,8 @@ img{
 [id^='flight']{
   margin: 2px;
 }
+
+h1 > a{
+  text-decoration: none;
+  color: var(--main-color);
+}
