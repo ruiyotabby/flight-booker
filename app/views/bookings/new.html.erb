@@ -1,0 +1,15 @@
+<%= form_with model: @booking do |form| %>
+  <%= form.label :flight, 'Flight ID' %>
+  <%= form.text_field :flight, value: @flight.id, readonly: true, disabled: true %>
+  <%= form.hidden_field :flight_id, value: @flight.id %>
+  
+  <%= form.label :date, 'Date' %>
+  <%= form.text_field :date, value: @flight.start, readonly: true, disabled: true %><br>
+
+  <%= form.label :departure_airport, 'Departure Airport' %>
+  <%= form.text_field :departure_airport, value: @flight.departure_airport.code, readonly: true, disabled: true %>
+  
+  <%= form.label :arrival_airport, 'Arrival Airport' %>
+  <%= form.text_field :arrival_airport, value: @flight.arrival_airport.code, readonly: true, disabled: true %><br>
+
+<% end %>
