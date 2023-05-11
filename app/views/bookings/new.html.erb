@@ -12,9 +12,8 @@
   <%= form.label :arrival_airport, 'Arrival Airport' %>
   <%= form.text_field :arrival_airport, value: @flight.arrival_airport.code, readonly: true, disabled: true %><br>
 
-  <% @booking.passengers.each do |passenger| %>
-    <%= form.fields_for :passengers_attributes, passenger do |p| %>
-      <%= p.hidden_field :id, value: p.object.id %>
+  <% params[:tickets].to_i.times do %>
+    <%= form.fields_for :passengers do |p| %>
 
       <%= p.label :name %>
       <%= p.text_field :name %>
