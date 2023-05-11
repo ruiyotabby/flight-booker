@@ -1,24 +1,2 @@
-# README
-
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## Flight Booker
+This is a a one-way flight booker. The homepage will have a dropdown menu consisting of  - a list of departure airports, arrival airports, number of passengers (1-4), and a date dropdown for the flight date. The user can pick from each dropdown and search for a flight. The user then fill in the details of the passengers before booking the flight. Here is the [website](https://twilight-darkness-2128.fly.dev/)
