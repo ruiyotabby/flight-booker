@@ -1,26 +1,38 @@
-<%= form_with model: @booking do |form| %>
-  <%= form.label :flight, 'Flight ID' %>
-  <%= form.text_field :flight, value: @flight.id, readonly: true, disabled: true %>
-  <%= form.hidden_field :flight_id, value: @flight.id %>
+<%= stylesheet_link_tag 'new.css' %>
+<div class="form">
   
-  <%= form.label :date, 'Date' %>
-  <%= form.text_field :date, value: @flight.start, readonly: true, disabled: true %><br>
-
-  <%= form.label :departure_airport, 'Departure Airport' %>
-  <%= form.text_field :departure_airport, value: @flight.departure_airport.code, readonly: true, disabled: true %>
+  <%= form_with model: @booking do |form| %>
+    <div>
+      <%= form.label :flight, 'Flight ID' %>
+      <%= form.text_field :flight, value: @flight.id, readonly: true, disabled: true %>
+      <%= form.hidden_field :flight_id, value: @flight.id %>
+    </div>
   
-  <%= form.label :arrival_airport, 'Arrival Airport' %>
-  <%= form.text_field :arrival_airport, value: @flight.arrival_airport.code, readonly: true, disabled: true %><br>
-
-  <% params[:tickets].to_i.times do %>
-    <%= form.fields_for :passengers do |p| %>
-
-      <%= p.label :name %>
-      <%= p.text_field :name %>
-        
-      <%= p.label :email %>
-      <%= p.email_field :email %><br><br>  
-    <% end %>
+    <div>
+      <%= form.label :date, 'Date' %>
+      <%= form.text_field :date, value: @flight.start, readonly: true, disabled: true %><br>
+    </div>
+  
+    <div>
+      <%= form.label :departure_airport, 'Departure Airport' %>
+      <%= form.text_field :departure_airport, value: @flight.departure_airport.code, readonly: true, disabled: true %>
+    </div>
+  
+    <div>
+      <%= form.label :arrival_airport, 'Arrival Airport' %>
+      <%= form.text_field :arrival_airport, value: @flight.arrival_airport.code, readonly: true, disabled: true %><br><br>
+    </div>
+  
+      <div>
+        <%= form.fields_for :passengers do |p| %>
+          <%= p.label :name %>
+          <%= p.text_field :name %>
+  
+          <%= p.label :email %>
+          <%= p.email_field :email %><br><br>
+        <% end %>
+  
+    <%= form.submit %><br>
+    </div>
   <% end %>
-  <%= form.submit %><br>
-<% end %>
+</div>
