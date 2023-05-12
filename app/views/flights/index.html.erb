@@ -1,8 +1,5 @@
 <%= stylesheet_link_tag 'index.css' %>
 
-<header>
-  <h1><%=link_to 'FlyExpress', root_path %></h1>
-</header>
 <div class="img">
   <%= image_tag "travel-by-plane.jpg" %>
   <div>Book your flight today
@@ -25,9 +22,11 @@
 <% end %>
 
 <% if request.query_parameters[:commit] %>
+<ul>
   <% if @found_flights.empty? %>
     <p>No flights matching your search query</p>
   <% else %>
+
     <p>Found <%= @found_flights.count %> flights</p>
     <%= form_with url: new_booking_path, method: :get do |f| %>
       <% @found_flights.each do |flight| %>
@@ -44,5 +43,6 @@
     <%= f.submit 'Select Flight' %>
     <% end %>
   <% end %>
+</ul>
 <% end %>
 
