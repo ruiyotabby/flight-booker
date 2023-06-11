@@ -1,11 +1,10 @@
-<%= stylesheet_link_tag 'index.css' %>
-
 <div class="img">
   <%= image_tag "travel-by-plane.jpg" %>
   <div>Book your flight today
   </div>
 </div>
-<%= form_with model: @flights, url: '/flights', method: :get do |form| %>
+
+<%= form_with model: @flights, url: '/flights', method: :get, data: { turbo_frame: "list-flights" } do |form| %>
   <%= form.label :departure_airport_id %>
   <%= form.select :departure_airport_id, @departure_options %>
 
@@ -21,28 +20,27 @@
   <%= form.submit 'Search' %>
 <% end %>
 
-<% if request.query_parameters[:commit] %>
-<ul>
-  <% if @found_flights.empty? %>
-    <p>No flights matching your search query</p>
-  <% else %>
-
-    <p>Found <%= @found_flights.count %> flights</p>
-    <%= form_with url: new_booking_path, method: :get do |f| %>
-      <% @found_flights.each do |flight| %>
-        <%= f.radio_button :flight_id, flight.id %>
-        <%= f.label "flight_#{flight.id}" do %>
-        
-          From: <%= flight.departure_airport.code %>
-          To: <%= flight.arrival_airport.code %>
-          Date: <%= flight.start.to_fs(:long) %>
-          Tickets: <%= request.query_parameters[:flight][:tickets] %>
+<%= turbo_frame_tag id='list-flights' do %>
+  <% if request.query_parameters[:commit] %>
+    <ul>
+      <% if @found_flights.empty? %>
+        <p>No flights matching your search query</p>
+      <% else %>
+        <p>Found <%= @found_flights.count %> flight(s)</p>
+        <%= form_with url: new_booking_path, method: :get do |f| %>
+          <% @found_flights.each do |flight| %>
+            <%= f.radio_button :flight_id, flight.id %>
+            <%= f.label "flight_#{flight.id}" do %>
+              From: <%= flight.departure_airport.code %>
+              To: <%= flight.arrival_airport.code %>
+              Date: <%= flight.start.to_fs(:long) %>
+              Tickets: <%= request.query_parameters[:flight][:tickets] %>
+            <% end %>
+            <%= f.hidden_field :tickets, value: request.query_parameters[:flight][:tickets] %>
+          <% end %>
+          <%= f.submit 'Select Flight', data: { turbo_frame: '_top' } %>
         <% end %>
-        <%= f.hidden_field :tickets, value: request.query_parameters[:flight][:tickets] %>
       <% end %>
-    <%= f.submit 'Select Flight' %>
-    <% end %>
+    </ul>
   <% end %>
-</ul>
 <% end %>
-
