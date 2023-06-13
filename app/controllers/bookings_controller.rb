@@ -10,6 +10,7 @@ class BookingsController < ApplicationController
     puts booking_params
 
     if @booking.save
+      @booking.passengers.each { |passenger| PassengerMailer.with(passenger: passenger).confirm_booking.deliver }
       redirect_to flights_path
     else
       render :new, status: :unprocessable_entity
